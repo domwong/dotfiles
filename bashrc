@@ -15,6 +15,8 @@ PS1="$GREEN\u@$(localhostname)$NO_COLOUR:\w$YELLOW\$(parse_git_branch)$NO_COLOUR
  #Set git autocompletion and PS1 integration
 if [ -f /usr/local/git/contrib/completion/git-completion.bash ]; then
   . /usr/local/git/contrib/completion/git-completion.bash
+elif [ -f ~/git-completion.bash ]; then
+  . ~/git-completion.bash
 fi
 GIT_PS1_SHOWDIRTYSTATE=true
  
@@ -24,11 +26,11 @@ fi
  
 export GREP_OPTIONS='--color=auto'
 alias psg='ps -ef | grep'
-export GOPATH=~/development/goworkspace/
-export CHGO_ROOT=~/development/chgo-0.1.4
-. $CHGO_ROOT/share/chgo/chgo.sh
-. $CHGO_ROOT/share/chgo/auto.sh
-export PATH="/usr/local/bin:$GOPATH/bin:~/bin:${PATH}"
-
-. ~/git-completion.bash
+export GOPATH=~/development/goworkspace
+if [ -d ~/development/chgo ]; then
+  export CHGO_ROOT=~/development/chgo
+  . $CHGO_ROOT/share/chgo/chgo.sh
+  . $CHGO_ROOT/share/chgo/auto.sh
+  export PATH="/usr/local/bin:$GOPATH/bin:~/bin:${PATH}"
+fi
 
